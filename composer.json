@@ -1,0 +1,13 @@
+{
+    "name": "zone/moneris-api",
+    "description": "Payments with Moneris",
+    "keywords": ["moneris"],
+    "require": {
+        "php": ">=5.4.0"
+    },
+    "autoload": {
+        "psr-0": {
+            "Zone": "src/"
+        }
+    }
+}

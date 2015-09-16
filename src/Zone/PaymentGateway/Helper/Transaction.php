@@ -2,7 +2,8 @@
 
 namespace Zone\PaymentGateway\Helper;
 
-class Transaction {
+class Transaction
+{
 
     /** @var string */
     protected $transactionId;
@@ -33,6 +34,12 @@ class Transaction {
 
     /** @var string */
     protected $apiResponse;
+
+    /** @var Recur */
+    protected $recur;
+
+    /** @var Customer */
+    protected $customer;
 
     /**
      * @return string
@@ -232,5 +239,36 @@ class Transaction {
         return $this;
     }
 
+    /**
+     * @return Recur
+     */
+    public function getRecur()
+    {
+        return $this->recur;
+    }
+
+    /**
+     * @param Recur $recur
+     */
+    public function setRecur($recur)
+    {
+        $this->recur = $recur;
+    }
+
+    /**
+     * @return Customer
+     */
+    public function getCustomer()
+    {
+        return $this->customer;
+    }
+
+    /**
+     * @param Customer $customer
+     */
+    public function setCustomer($customer)
+    {
+        $this->customer = $customer;
+    }
 
 }

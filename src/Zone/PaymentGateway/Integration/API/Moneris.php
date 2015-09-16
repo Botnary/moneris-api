@@ -42,16 +42,27 @@ class Moneris extends Core\XmlApi
      */
     public function createCharge(Helper\CreditCard $creditCard, Helper\Transaction $transaction)
     {
-         $this->api(
+        $payload = [
+            'order_id' => $transaction->getTransactionId(),
+            'amount' => sprintf('%.2f', $transaction->getAmount()),
+            'pan' => $creditCard->getCardNumber(),
+            'expdate' => $creditCard->getCardExpiry()->format('ym'),
+            'crypt_type' => 7,
+            'dynamic_descriptor' => $this->dynamicDescriptor ? $this->dynamicDescriptor : '',
+        ];
+        if ($transaction->getRecur()) {
+            $payload['recur'] = [
+                'recur_unit' => $transaction->getRecur()->getRecurUnit(),
+                'start_now' => $transaction->getRecur()->getStartNow() ? 'true' : 'false',
+                'start_date' => $transaction->getRecur()->getStartDate()->format('Y/m/t'),
+                'num_recurs' => $transaction->getRecur()->getNumRecurs(),
+                'period' => $transaction->getRecur()->getPeriod(),
+                'recur_amount' => sprintf('%.2f', $transaction->getRecur()->getRecurAmount()),
+            ];
+        }
+        $this->api(
             'purchase',
-            [
-                'order_id' => $transaction->getTransactionId(),
-                'amount' => number_format($transaction->getAmount(), 2, '.', ''),
-                'pan' => $creditCard->getCardNumber(),
-                'expdate' => $creditCard->getCardExpiry()->format('ym'),
-                'crypt_type' => 7,
-                'dynamic_descriptor' => $this->dynamicDescriptor,
-            ]
+            $payload
         );
     }
 
@@ -136,7 +147,8 @@ class Moneris extends Core\XmlApi
      *
      * @return \SimpleXMLElement
      */
-    private function requestXML($method, array $data) {
+    private function requestXML($method, array $data)
+    {
 
         $data = [
             'store_id' => $this->storeId,

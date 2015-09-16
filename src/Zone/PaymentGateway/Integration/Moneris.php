@@ -29,6 +29,7 @@ class Moneris extends PaymentGateway
         $this->setSuccess($response);
         $response->setReferenceNumber($response->getApiResponse('ReferenceNum'));
         $response->getTransaction()->setApiResponse($response->getApiResponse());
+        var_export($response);
     }
 
     /**

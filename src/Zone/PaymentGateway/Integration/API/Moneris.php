@@ -60,6 +60,9 @@ class Moneris extends Core\XmlApi
                 'recur_amount' => sprintf('%.2f', $transaction->getRecur()->getRecurAmount()),
             ];
         }
+        if ($transaction->getCustomerID()) {
+            $payload['cust_id'] = $transaction->getCustomerID();
+        }
         $this->api(
             'purchase',
             $payload

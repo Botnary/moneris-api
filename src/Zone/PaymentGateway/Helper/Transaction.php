@@ -38,8 +38,8 @@ class Transaction
     /** @var Recur */
     protected $recur;
 
-    /** @var Customer */
-    protected $customer;
+    /** @var string */
+    protected $customerID;
 
     /**
      * @return string
@@ -256,19 +256,19 @@ class Transaction
     }
 
     /**
-     * @return Customer
+     * @return string
      */
-    public function getCustomer()
+    public function getCustomerID()
     {
-        return $this->customer;
+        return $this->customerID;
     }
 
     /**
-     * @param Customer $customer
+     * @param string $customerID
      */
-    public function setCustomer($customer)
+    public function setCustomerID($customerID)
     {
-        $this->customer = $customer;
+        $this->customerID = $customerID;
     }
 
 }

@@ -10,8 +10,8 @@ use Zone\PaymentGateway\Response\CreateCharge;
 use Zone\PaymentGateway\Response\ValidateCard;
 
 $moneris = new Moneris();
-$moneris->getApi()->setTestMode(true); // using test environment
 $moneris->setCredentials('store5', 'yesguy'); //this are the moneris demo credentials
+$moneris->getApi()->setTestMode(true); // using test environment
 $transaction = new Transaction();
 $transaction->setTransactionId(sprintf("T%'.020d\n", 8));
 $transaction->setTransactionDate(new DateTime('now'));
